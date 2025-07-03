@@ -1,3 +1,8 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using ExcelReader;
+using ExcelReader.Controllers;
+using ExcelReader.Data;
 
-Console.WriteLine("Hello, World!");
+var context= new ExcelContext();
+var ExcelFileReader= new ExcelFileReader();
+var controller= new AppController(context,ExcelFileReader);
+controller.Run();
