@@ -1,6 +1,9 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace ExcelReader.Data;
 
-public class ExcelContext
+public class ExcelContext : DbContext
 {
+    
     
 }
