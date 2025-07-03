@@ -9,6 +9,11 @@ public class ExcelContext : DbContext
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)=>
         optionsBuilder.UseSqlite("Data Source=coffee.db");
-    
-    
+
+    public void Initialize()
+    {
+        this.Database.EnsureDeleted();
+        this.Database.EnsureCreated();
+        
+    }
 }
