@@ -3,7 +3,7 @@ using OfficeOpenXml;
 
 namespace ExcelReader;
 
-public class ExcelFileReader
+public class ExcelFileReader : IExcelFileReader<Coffee>
 {
     private string _filePath;
     static ExcelFileReader()
@@ -16,12 +16,10 @@ public class ExcelFileReader
         var path = Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "Data", "data.xlsx");
         _filePath=Path.GetFullPath(path); 
     }
-    public List<Coffee> Read()
+    public IEnumerable<Coffee> Read(int pageIndex=0)
     {
-        using var package = new ExcelPackage(_filePath);
-        var worksheet = package.Workbook.Worksheets[0];
-        int rowCount = worksheet.Dimension.Rows;
-        int columnCount = worksheet.Dimension.Columns;
+       var worksheet = LoadWorksheet(); 
+       int rowCount=worksheet.Cells.Count();
         List<Coffee> coffees = new List<Coffee>();
         for (int row = 2; row <= rowCount; row++)
         {
@@ -36,5 +34,13 @@ public class ExcelFileReader
             coffees.Add(coffee);
         }
         return coffees;
+    }
+
+    public ExcelWorksheet LoadWorksheet(int pageIndex=0)
+    {
+        using var package = new ExcelPackage(_filePath);
+        var worksheet = package.Workbook.Worksheets[pageIndex];
+        if(worksheet==null) throw new Exception("ExcelFileReader: worksheet is null");
+        return worksheet;
     }
 }
