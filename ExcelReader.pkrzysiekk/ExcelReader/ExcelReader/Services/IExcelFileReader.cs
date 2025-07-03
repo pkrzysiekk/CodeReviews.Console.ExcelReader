@@ -4,7 +4,7 @@ namespace ExcelReader;
 
 public interface IExcelFileReader<T>
 {
-    public IEnumerable<T> Read();
-    public ExcelWorksheet LoadWorksheet(); 
+    public IEnumerable<T> Read(int pageIndex);
+    public ExcelWorksheet LoadWorksheet(int pageIndex); 
     
 }
