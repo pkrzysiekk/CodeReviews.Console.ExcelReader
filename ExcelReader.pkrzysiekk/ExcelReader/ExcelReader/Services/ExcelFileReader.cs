@@ -18,8 +18,9 @@ public class ExcelFileReader : IExcelFileReader<Coffee>
     }
     public IEnumerable<Coffee> Read(int pageIndex=0)
     {
-       var worksheet = LoadWorksheet(); 
-       int rowCount=worksheet.Cells.Count();
+     using var worksheet = LoadWorksheet();
+
+     int rowCount = worksheet.Rows.Count();
         List<Coffee> coffees = new List<Coffee>();
         for (int row = 2; row <= rowCount; row++)
         {
@@ -34,11 +35,12 @@ public class ExcelFileReader : IExcelFileReader<Coffee>
             coffees.Add(coffee);
         }
         return coffees;
+        
     }
 
     public ExcelWorksheet LoadWorksheet(int pageIndex=0)
-    {
-        using var package = new ExcelPackage(_filePath);
+    { 
+        var package = new ExcelPackage(_filePath);
         var worksheet = package.Workbook.Worksheets[pageIndex];
         if(worksheet==null) throw new Exception("ExcelFileReader: worksheet is null");
         return worksheet;
