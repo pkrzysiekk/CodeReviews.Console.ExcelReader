@@ -6,14 +6,15 @@ namespace ExcelReader.Data;
 public class ExcelContext : DbContext
 {
     public DbSet<Coffee> Coffees { get; set; }
-    
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)=>
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
         optionsBuilder.UseSqlite("Data Source=coffee.db");
+    }
 
     public void Initialize()
     {
-        this.Database.EnsureDeleted();
-        this.Database.EnsureCreated();
-        
+        Database.EnsureDeleted();
+        Database.EnsureCreated();
     }
 }

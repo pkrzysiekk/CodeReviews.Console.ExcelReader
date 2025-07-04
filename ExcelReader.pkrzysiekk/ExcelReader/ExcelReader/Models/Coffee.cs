@@ -7,5 +7,5 @@ public class Coffee
     public required string Origin { get; set; }
     public required string RoastLevel { get; set; }
     public decimal Price { get; set; }
-    public required string FlavorNotes {get; set;}
+    public required string FlavorNotes { get; set; }
 }

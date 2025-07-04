@@ -6,12 +6,13 @@ namespace ExcelReader.Controllers;
 
 public class AppController
 {
-    private ExcelContext _context;
-    private IExcelFileReader<Coffee> _fileReader; 
+    private readonly ExcelContext _context;
+    private readonly IExcelFileReader<Coffee> _fileReader;
+
     public AppController(ExcelContext context, IExcelFileReader<Coffee> fileReader)
     {
-       _context = context; 
-       _fileReader = fileReader;
+        _context = context;
+        _fileReader = fileReader;
     }
 
     public void Run()
@@ -20,7 +21,5 @@ public class AppController
         var coffees = _fileReader.Read();
         _context.BulkInsert(coffees);
         _context.SaveChanges();
-
     }
-    
 }
