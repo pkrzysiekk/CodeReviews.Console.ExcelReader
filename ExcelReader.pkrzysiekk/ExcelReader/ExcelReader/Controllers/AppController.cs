@@ -28,7 +28,7 @@ public class AppController
         Console.WriteLine("Click any key to get another coffee page or q to exit");
         var key = Console.ReadKey().ToString();
         int pageNumber = 1;
-        int pageSize = 900;
+        int pageSize = 20;
         while (key != "q")
         {
             var pagedCoffees= GetPagedData(pageNumber, pageSize);
@@ -39,9 +39,8 @@ public class AppController
             }
 
             foreach (var coffee in pagedCoffees)
-            {
-                Console.WriteLine(coffee.Name);
-            }
+                Console.WriteLine(coffee.ToString());
+            
             pageNumber++;
             Console.WriteLine("Click any key to get another coffee page or q to exit");
             key = Console.ReadKey().ToString();
