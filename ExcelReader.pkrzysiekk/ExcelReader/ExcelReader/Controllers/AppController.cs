@@ -17,8 +17,11 @@ public class AppController
 
     public void Run()
     {
+        Console.WriteLine("Creating a table for the data");
         _context.Initialize();
+        Console.WriteLine("Reading the doc");
         var coffees = _fileReader.Read();
+        Console.WriteLine("Inserting the data");
         _context.BulkInsert(coffees);
         _context.SaveChanges();
     }
