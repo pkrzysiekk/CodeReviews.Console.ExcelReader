@@ -22,4 +22,35 @@ public class AppController
         _context.BulkInsert(coffees);
         _context.SaveChanges();
     }
+
+    public void ShowCoffees()
+    {
+        Console.WriteLine("Click any key to get another coffee page or q to exit");
+        var key = Console.ReadKey().ToString();
+        int pageNumber = 1;
+        int pageSize = 900;
+        while (key != "q")
+        {
+            var pagedCoffees= GetPagedData(pageNumber, pageSize);
+            if (!pagedCoffees.Any())
+            {
+                Console.WriteLine("No more Coffees found");
+                return;
+            }
+
+            foreach (var coffee in pagedCoffees)
+            {
+                Console.WriteLine(coffee.Name);
+            }
+            pageNumber++;
+            Console.WriteLine("Click any key to get another coffee page or q to exit");
+            key = Console.ReadKey().ToString();
+
+        }
+    }
+
+    private IEnumerable<Coffee> GetPagedData(int pageNumber, int pageSize)
+    {
+        return _context.Coffees.Skip((pageNumber - 1) * pageSize).Take(pageSize);
+    }
 }
